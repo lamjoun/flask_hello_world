@@ -53,7 +53,54 @@ gcloud run deploy helloworld-srv1 --image $ZONE-docker.pkg.dev/$PROJECT_ID/$DOCK
 # For check
 curl https://helloworld-srv1-zfdiq2g7aa-nn.a.run.app
 
+```
+# Create Service Account
+```
+#================
+#*** creation by console ---> IAM a Admin and after "Service Accounts"
+# Adding roles: Viewer, Cloud Run Service Agent
+#=================
+# for check 
+export PROJECT_ID='rl-project-test1'
+export SERVICE_ACCOUNT_EMAIL=srv-account-github-actions@rl-project-test1.iam.gserviceaccount.com
+gcloud iam service-accounts list --project=$PROJECT_ID
+# or 
+gcloud iam service-accounts list
+# with email adress ---> srv-account-github-actions@rl-project-test1.iam.gserviceaccount.com
+# export information of Service Account in *** keys.json *** file
+# be carreful in creating secrets action ===> GCP_SA_KEY_JSON
+gcloud iam service-accounts keys create ./keys.json --iam-account srv-account-github-actions@rl-project-test1.iam.gserviceaccount.com
+
+
+
+#**************************
+# URL: https://cloud.google.com/iam/docs/service-accounts-create
+#-----
+
+export SERVICE_ACCOUNT_EMAIL2=srv2-account-github-actions2@rl-project-test1.iam.gserviceaccount.com
+export PROJECT_ID='rl-project-test1'
+
+
+# Service Account Creation  - be carreful to current project
+gcloud iam service-accounts create srv2-account-github-actions2 \
+    --description="Description: srv2-account-github-actions2" \
+    --display-name="SA2-Github"
+
+# set role to sevice account : srv2-account-github-actions2
+# Service Account Adding role ---> roles/run.serviceAgent
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:$SERVICE_ACCOUNT_EMAIL2 --role=roles/run.serviceAgent
+ 
+# Service Account Adding role ---> roles/viewer
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:$SERVICE_ACCOUNT_EMAIL2 --role=roles/viewer
+
+# get roles ??
+gcloud iam service-accounts get-iam-policy serviceAccount:$SERVICE_ACCOUNT_EMAIL2 --project $PROJECT_ID
+
+# export keys.json --> information of Service Account
+gcloud iam service-accounts keys create ./keys2.json --iam-account $SERVICE_ACCOUNT_EMAIL2
+
+
+
 
 ```
-
 
