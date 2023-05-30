@@ -8,7 +8,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   APP_ID: continous-deployment-hello-world
   RUN_REGION: us-central1
-  SA_KEY_JSON: ${{ secrets.GCP_SA_KEY_JSON }}
+  SA_KEY_JSON: ${{ secrets.GCP_SA_KEY_JSON2 }}
 jobs:
   deploy:
     name: Deploy to Cloud Run
