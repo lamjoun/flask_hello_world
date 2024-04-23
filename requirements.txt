@@ -1,5 +1,2 @@
-# https://pypi.org/project/flask/
-Flask >= 2.2
-
-# https://pypi.org/project/gunicorn/
-gunicorn==20.1.0
+fastapi==0.110.2
+uvicorn==0.29.0
